@@ -1,0 +1,22 @@
+/**
+ * text-highlighter.component.scss
+ *
+ *  Custom set of rules for selected component.
+ *
+ */
+
+@import '../../../variables.scss';
+
+.container {
+  .my-blue {
+    background-color: $my-blue;
+    color: white;
+    padding: 5px;
+  }
+
+  .my-orange {
+    background-color: $my-orange;
+    color: white;
+    padding: 5px;
+  }
+}
