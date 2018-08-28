@@ -2,6 +2,7 @@ import {inject, TestBed} from '@angular/core/testing';
 
 import {DataService} from './data.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpErrorResponse} from '@angular/common/http';
 
 describe('DataService', () => {
   const location = 'assets/lorem.html';
@@ -17,7 +18,7 @@ describe('DataService', () => {
     });
   });
 
-  it('expects service to fetch proper data',
+  it('should fetch proper data',
     inject([HttpTestingController, DataService],
       (httpMock: HttpTestingController, service: DataService) => {
 
@@ -30,6 +31,25 @@ describe('DataService', () => {
         expect(req.request.method).toEqual('GET');
         expect(req.request.responseType).toEqual('text');
         req.flush(mockHtml);
+        httpMock.verify();
+      })
+  );
+
+
+  it('should throw error with error message',
+    inject([HttpTestingController, DataService],
+      (httpMock: HttpTestingController, service: DataService) => {
+        service.getData(location).subscribe(response => fail('should fail with 500 status'),
+          (error: HttpErrorResponse) => {
+            expect(error).toBeTruthy();
+            expect(error.status).toEqual(500);
+          });
+
+        const req = httpMock.expectOne('assets/lorem.html');
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.responseType).toEqual('text');
+        req.flush({errorMessage: 'An error Happened!'}, {status: 500, statusText: 'Server Error'});
+        httpMock.verify();
       })
   );
 });

@@ -14,6 +14,6 @@ export class MockDataService {
    * @returns {Observable<any>}
    */
   getData(location: string): Observable<any> {
-    return of('<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>');
+    return of('<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p>');
   }
 }

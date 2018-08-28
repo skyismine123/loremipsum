@@ -1,2 +1,3 @@
-<div [innerHtml]="htmlContent" id="container" class="container">
+<div *ngIf="!errorHappened" [innerHtml]="htmlContent" id="container" class="container">
 </div>
+<div *ngIf="errorHappened"> An error occured.</div>

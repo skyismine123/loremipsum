@@ -41,6 +41,8 @@ export class InterceptorService implements HttpInterceptor {
 
   /**
    * Method for global handling of errors.
+   * Used for logging errors and rethrowing them.
+   * Can be handled in more specific way down in the call stack.
    * @method  handleError
    * @param {HttpErrorResponse} error
    * @returns {Observable<never>}

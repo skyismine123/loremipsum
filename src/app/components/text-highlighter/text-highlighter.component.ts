@@ -27,6 +27,12 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
   htmlContent: string;
 
   /**
+   * @type {boolean} errorHappened
+   * Error flag.
+   */
+  errorHappened = false;
+
+  /**
    * @type string location
    * Location of html file.
    */
@@ -57,6 +63,8 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
 
         this.htmlContent = this.highlightLetter('o', this.htmlContent, 'blue');
         this.htmlContent = this.highlightLetter('r', this.htmlContent, 'orange');
+      }, () => {
+        this.errorHappened = true;
       });
   }
 

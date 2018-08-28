@@ -11,6 +11,8 @@ describe('TextHighlighterComponent', () => {
   let fixture: ComponentFixture<TextHighlighterComponent>;
   let component: TextHighlighterComponent;
   let dataService: DataService;
+  const mockHtml = '<p>Lorem ipsum, dolor sit amet?</p>';
+  const mockHtmlForSorting = '<h1>lorem ipsum</h1><p>Lorem ipsum dolor sit amet</p>';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,5 +40,25 @@ describe('TextHighlighterComponent', () => {
   it('should call the data service in onInit', () => {
     component.ngOnInit();
     expect(dataService.getData).toHaveBeenCalled();
+  });
+
+  it('should clear interpunctions', () => {
+    expect(component.clearInterpunctions(mockHtml))
+      .toBe('<p>Lorem ipsum dolor sit amet</p>');
+  });
+
+  it('should highlight letter o with blue color', () => {
+    expect(component.highlightLetter('o', mockHtml, 'blue'))
+      .toBe(`<p>L<span class='my-blue'>o</span>rem ipsum, d<span class='my-blue'>o</span>l<span class='my-blue'>o</span>r sit amet?</p>`);
+  });
+
+  it('should highlight letter o with orange color', () => {
+    expect(component.highlightLetter('o', mockHtml, 'orange'))
+      .toBe(`<p>L<span class='my-orange'>o</span>rem ipsum, d<span class='my-orange'>o</span>l<span class='my-orange'>o</span>r sit amet?</p>`);
+  });
+
+  it('expect to sort paragraphs', () => {
+    expect(component.sortWordsInParagraphs(mockHtmlForSorting))
+      .toBe(`<h1>lorem ipsum</h1><p>amet dolor ipsum Lorem sit</p>`);
   });
 });
