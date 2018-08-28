@@ -23,7 +23,7 @@ Angular was used for his out of the box support of key aspects which are importa
  - (Code quality standard) Support of TSLint.
  
  Technologies used in detail:
- - [Angular CLI 6.1.5]((https://cli.angular.io/) )
+ - [Angular CLI 6.1.5](https://cli.angular.io/) 
  - [Typescript 2.7.2](https://www.typescriptlang.org/)
  - [Jasmine 2.99](https://jasmine.github.io/)
  - [Karma 3](https://karma-runner.github.io/2.0/index.html)
