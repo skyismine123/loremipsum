@@ -52,7 +52,7 @@ describe('TextHighlighterComponent', () => {
       .toBe(`<p>L<span class='my-blue'>o</span>rem ipsum, d<span class='my-blue'>o</span>l<span class='my-blue'>o</span>r sit amet?</p>`);
   });
 
-  it('should highlight letter o with orange color', () => {
+  it('should highlight letter r with orange color', () => {
     expect(component.highlightLetter('o', mockHtml, 'orange'))
       .toBe(`<p>L<span class='my-orange'>o</span>rem ipsum, d<span class='my-orange'>o</span>l<span class='my-orange'>o</span>r sit amet?</p>`);
   });
