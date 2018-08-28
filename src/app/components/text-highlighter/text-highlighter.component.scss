@@ -4,19 +4,19 @@
  *  Custom set of rules for selected component.
  *
  */
-
 @import '../../../variables.scss';
 
 .container {
-  .my-blue {
-    background-color: $my-blue;
+  .my-blue, .my-orange {
     color: white;
     padding: 5px;
   }
 
   .my-orange {
     background-color: $my-orange;
-    color: white;
-    padding: 5px;
+  }
+
+  .my-blue {
+    background-color: $my-blue;
   }
 }

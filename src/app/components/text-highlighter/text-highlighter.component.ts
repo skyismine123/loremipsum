@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {DataService} from '../../services/data/data.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {LoremIpsumConstants} from '../../util/lorem-ipsum-constants';
 
 /**
  * A class representing a ui component for showing data from service.
@@ -60,9 +61,8 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
 
         this.htmlContent = this.clearInterpunctions(this.htmlContent);
         this.htmlContent = this.sortWordsInParagraphs(this.htmlContent);
-
-        this.htmlContent = this.highlightLetter('o', this.htmlContent, 'blue');
-        this.htmlContent = this.highlightLetter('r', this.htmlContent, 'orange');
+        this.htmlContent = this.highlightLetter(LoremIpsumConstants.LETTER_O, this.htmlContent, LoremIpsumConstants.BLUE_COLOR);
+        this.htmlContent = this.highlightLetter(LoremIpsumConstants.LETTER_R, this.htmlContent, LoremIpsumConstants.ORANGE_COLOR);
       }, () => {
         this.errorHappened = true;
       });
@@ -74,7 +74,7 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
    * @returns {string}
    */
   clearInterpunctions(content: string): string {
-    return content.replace(/[.,;:\?]/g, '');
+    return content.replace(LoremIpsumConstants.CLEAR_INTERPUNCTION_REGEX, LoremIpsumConstants.EMPTY_STRING);
   }
 
   /**
@@ -83,11 +83,11 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
    * @returns {string}
    */
   sortWordsInParagraphs(content: string): string {
-    return content.replace(/<p>(.*?)<\/p>/g, (paragraphContent: string, firstGroup: string) => {
-      const sortedArray = firstGroup.split(' ').sort(function (a, b) {
+    return content.replace(LoremIpsumConstants.SORT_WORDS_REGEX, (paragraphContent: string, firstGroup: string) => {
+      const sortedArray = firstGroup.split(LoremIpsumConstants.SPACE).sort(function (a, b) {
         return a.toLowerCase().localeCompare(b.toLowerCase());
       });
-      const sortedParagraph = sortedArray.join(' ');
+      const sortedParagraph = sortedArray.join(LoremIpsumConstants.SPACE);
       return `<p>${sortedParagraph}</p>`;
     });
   }

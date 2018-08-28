@@ -57,8 +57,13 @@ describe('TextHighlighterComponent', () => {
       .toBe(`<p>L<span class='my-orange'>o</span>rem ipsum, d<span class='my-orange'>o</span>l<span class='my-orange'>o</span>r sit amet?</p>`);
   });
 
-  it('expect to sort paragraphs', () => {
+  it('should sort words in paragraphs', () => {
     expect(component.sortWordsInParagraphs(mockHtmlForSorting))
       .toBe(`<h1>lorem ipsum</h1><p>amet dolor ipsum Lorem sit</p>`);
+  });
+
+  it('should do all three transformation properly onInit', () => {
+    component.ngOnInit();
+    expect(component.htmlContent).toBe(`<p>adipiscing amet c<span class='my-blue'>o</span>nsectetu<span class='my-orange'>r</span> d<span class='my-blue'>o</span>l<span class='my-blue'>o</span><span class='my-orange'>r</span> elit ipsum L<span class='my-blue'>o</span><span class='my-orange'>r</span>em sit</p>`);
   });
 });
