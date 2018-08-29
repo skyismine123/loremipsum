@@ -69,12 +69,14 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method which clears intepunction symbols.
+   * Method which clears interpunction symbols.
    * @param {string} content
    * @returns {string}
    */
   clearInterpunctions(content: string): string {
-    return content.replace(LoremIpsumConstants.CLEAR_INTERPUNCTION_REGEX, LoremIpsumConstants.EMPTY_STRING);
+    return content.replace(LoremIpsumConstants.SORT_WORDS_REGEX, (paragraphContent: string) => {
+      return paragraphContent.replace(LoremIpsumConstants.CLEAR_INTERPUNCTION_REGEX, LoremIpsumConstants.EMPTY_STRING);
+    });
   }
 
   /**
