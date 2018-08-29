@@ -42,7 +42,7 @@ If you dont have [Angular CLI](https://cli.angular.io/) installed you can do it 
 ```
  npm install -g @angular/cli 
 ```
-After it you would need to get all packages listed in your package.json by getting to the src of the project and run:
+After it you would need to get all packages listed in your package.json by getting to the root of the project and run:
 ```
  npm install 
 ```
