@@ -3,6 +3,7 @@ import {DataService} from '../../services/data/data.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {LoremIpsumConstants} from '../../util/lorem-ipsum-constants';
+import {TextHighlighterService} from '../../services/text-highlighter.service';
 
 /**
  * A class representing a ui component for showing data from service.
@@ -45,7 +46,7 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
    */
   private unSubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private textHighlighterService: TextHighlighterService) {
   }
 
   ngOnInit() {
@@ -61,8 +62,8 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
 
         this.htmlContent = this.clearInterpunctions(this.htmlContent);
         this.htmlContent = this.sortWordsInParagraphs(this.htmlContent);
-        this.htmlContent = this.highlightLetter(LoremIpsumConstants.LETTER_O, this.htmlContent, LoremIpsumConstants.BLUE_COLOR);
-        this.htmlContent = this.highlightLetter(LoremIpsumConstants.LETTER_R, this.htmlContent, LoremIpsumConstants.ORANGE_COLOR);
+        this.htmlContent = this.textHighlighterService.highlightLetter(LoremIpsumConstants.LETTER_O, this.htmlContent, LoremIpsumConstants.BLUE_COLOR);
+        this.htmlContent = this.textHighlighterService.highlightLetter(LoremIpsumConstants.LETTER_R, this.htmlContent, LoremIpsumConstants.ORANGE_COLOR);
       }, () => {
         this.errorHappened = true;
       });
@@ -92,21 +93,6 @@ export class TextHighlighterComponent implements OnInit, OnDestroy {
       const sortedParagraph = sortedArray.join(LoremIpsumConstants.SPACE);
       return `<p>${sortedParagraph}</p>`;
     });
-  }
-
-  /**
-   * Method which highlights the letter provided.
-   * @param {string} letterToHighlight
-   * @param {string} content
-   * @param {string} color
-   * @returns {string}
-   */
-  highlightLetter(letterToHighlight: string, content: string, color: string) {
-    const regex = new RegExp(letterToHighlight, 'gi');
-    return content.replace(regex, (letter: string) => {
-        return `<span class='my-${color}'>${letter}</span>`;
-      }
-    );
   }
 
   ngOnDestroy(): void {

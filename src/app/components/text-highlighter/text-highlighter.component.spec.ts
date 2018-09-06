@@ -6,6 +6,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ComponentFixture} from '@angular/core/testing/src/component_fixture';
 import {AppModule} from '../../app.module';
 import {MockDataService} from '../../test/services/data.mock.service';
+import {TextHighlighterService} from '../../services/text-highlighter.service';
 
 describe('TextHighlighterComponent', () => {
   let fixture: ComponentFixture<TextHighlighterComponent>;
@@ -19,6 +20,7 @@ describe('TextHighlighterComponent', () => {
       imports: [AppModule, HttpClientTestingModule],
       providers: [
         TextHighlighterComponent,
+        TextHighlighterService,
         {provide: DataService, useClass: MockDataService}
       ],
     });
@@ -45,16 +47,6 @@ describe('TextHighlighterComponent', () => {
   it('should clear interpunctions', () => {
     expect(component.clearInterpunctions(mockHtml))
       .toBe('<p>Lorem ipsum dolor sit amet</p>');
-  });
-
-  it('should highlight letter o with blue color', () => {
-    expect(component.highlightLetter('o', mockHtml, 'blue'))
-      .toBe(`<p>L<span class='my-blue'>o</span>rem ipsum, d<span class='my-blue'>o</span>l<span class='my-blue'>o</span>r sit amet?</p>`);
-  });
-
-  it('should highlight letter r with orange color', () => {
-    expect(component.highlightLetter('o', mockHtml, 'orange'))
-      .toBe(`<p>L<span class='my-orange'>o</span>rem ipsum, d<span class='my-orange'>o</span>l<span class='my-orange'>o</span>r sit amet?</p>`);
   });
 
   it('should sort words in paragraphs', () => {
